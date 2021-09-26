@@ -18,7 +18,15 @@ public class MovieService {
     }
 
     public void addNewMovie(Movie movie) {
-        // TODO: check if movie exists
+        movieDao
+                .selectMovieById(movie.id())
+                .ifPresent(existingMovie -> {
+                    throw new IllegalArgumentException(String.format(
+                            "Movie with ID %s already exists",
+                            existingMovie.id()
+                    ));
+                });
+
         int result = movieDao.insertMovie(movie);
 
         if (result != 1) {
