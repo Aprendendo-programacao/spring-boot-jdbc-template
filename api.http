@@ -1,17 +1,17 @@
 ### Get all movies
 GET http://localhost:8080/api/v1/movies
 
-### Get movie by ID
-GET http://localhost:8080/api/v1/movies/1
-
 ### Create movie
 POST http://localhost:8080/api/v1/movies
 Content-Type: application/json
 
 {
-  "name": "Avengers",
+  "name": "Kingsman",
   "releaseDate": "2020-03-20"
 }
+
+### Get movie by ID
+GET http://localhost:8080/api/v1/movies/1
 
 ### Delete movie by ID
 DELETE http://localhost:8080/api/v1/movies/1
