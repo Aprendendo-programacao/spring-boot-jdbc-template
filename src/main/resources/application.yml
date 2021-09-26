@@ -5,7 +5,7 @@ app:
       jdbc-url: jdbc:postgresql://localhost:5432/amigoscode
       username: amigoscode
       password: 'password'
-      pool-size: 30
+      pool-size: 12
 
 server:
   error:
