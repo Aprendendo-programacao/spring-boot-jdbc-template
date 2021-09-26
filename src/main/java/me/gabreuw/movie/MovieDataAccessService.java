@@ -1,5 +1,6 @@
 package me.gabreuw.movie;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -7,13 +8,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor
 public class MovieDataAccessService implements MovieDao {
 
     private final JdbcTemplate jdbcTemplate;
-
-    public MovieDataAccessService(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     @Override
     public List<Movie> selectMovies() {
@@ -22,6 +20,7 @@ public class MovieDataAccessService implements MovieDao {
                 FROM movie
                 LIMIT 100;
                  """;
+
         return jdbcTemplate.query(sql, new MovieRowMapper());
     }
 
@@ -31,6 +30,7 @@ public class MovieDataAccessService implements MovieDao {
                 INSERT INTO movie(name, release_date)
                 VALUES (?, ?);
                  """;
+
         return jdbcTemplate.update(
                 sql,
                 movie.name(), movie.releaseDate()
@@ -43,6 +43,7 @@ public class MovieDataAccessService implements MovieDao {
                 DELETE FROM movie   
                 WHERE id = ?
                 """;
+
         return jdbcTemplate.update(sql, id);
     }
 
@@ -53,7 +54,9 @@ public class MovieDataAccessService implements MovieDao {
                 FROM movie
                 WHERE id = ?
                  """;
-        return jdbcTemplate.query(sql, new MovieRowMapper(), id)
+
+        return jdbcTemplate
+                .query(sql, new MovieRowMapper(), id)
                 .stream()
                 .findFirst();
     }
